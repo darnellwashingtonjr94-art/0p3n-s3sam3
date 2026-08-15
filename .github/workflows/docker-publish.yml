@@ -9,7 +9,7 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
-    steps:www
+    steps:
       # 1. Checkout repository code
       - name: Checkout Code
         uses: actions/checkout@v4
