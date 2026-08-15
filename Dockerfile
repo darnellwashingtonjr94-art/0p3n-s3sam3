@@ -1,28 +1,24 @@
-# Step 1: Base image
-FROM node:20-alpine AS base
+# Step 1: Base image for Python
+FROM python:3.11-slim AS base
 WORKDIR /app
 
-# Step 2: Build arguments & environment variables
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-ENV PORT=8080
+# Step 2: Set environment variables to optimize Python inside Docker
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-# Step 3: Copy dependencies definition and install
-COPY package*.json ./
-RUN npm install --omit=dev
+# Step 3: Install system-level penetration testing tools (e.g., Nmap)
+RUN apt-get update && apt-get install -y \
+    nmap \
+    wget \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
-# Step 4: Copy source code
+# Step 4: Copy Python requirements and install them
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Step 5: Copy the rest of your repository's scripts and files
 COPY . .
 
-# Step 5: Security - Run as non-root user
-USER node
-
-# Step 6: Expose application port
-EXPOSE 8080
-
-# Step 7: Container healthcheck
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/ || exit 1
-
-# Step 8: Default startup command
-CMD ["node", "index.js"]
+# Step 6: Default command (Opens a bash shell so you can run your tools)
+CMD ["/bin/bash"]
