@@ -19,4 +19,5 @@ jobs:
       - name: Execute Markdown Lint Scan
         uses: DavidAnson/markdownlint-cli2-action@v1
         with:
-          globs: "**/*.md"
+          globs: "**/*.md"hhhggh
+          hh
