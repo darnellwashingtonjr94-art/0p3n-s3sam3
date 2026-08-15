@@ -3,7 +3,7 @@
   <img src="1782164163220.png" alt="Profile Image" width="400"/>
 </p>
 
-[Watch the video of 0-s cracking 1000s in 0.5 seconds](https://labs.google/fx/tools/flow/shared/video/ff2643b5-8319-4292-8fcc-f48f4a0651bc)
+[Watch the video of 0-s cracking 1000s of Databases in 0.5 seconds](https://labs.google/fx/tools/flow/shared/video/ff2643b5-8319-4292-8fcc-f48f4a0651bc)
 
 # 0p3n-s3s@m3
 
