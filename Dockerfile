@@ -9,7 +9,8 @@ ENV PORT=8080
 
 # Step 3: Copy dependencies definition and install
 COPY package*.json ./
-RUN npm ci --only=production
+# Uses npm install with modern --omit=dev flag to avoid npm ci lockfile failures
+RUN npm install --omit=dev
 
 # Step 4: Copy source code
 COPY . .
@@ -19,6 +20,14 @@ USER node
 
 # Step 6: Expose application port
 EXPOSE 8080
+
+# Step 7: Container healthcheck
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/ || exit 1
+
+# Step 8: Default startup command
+CMD ["node", "index.js"]
+
 
 # Step 7: Container healthcheck
 HEALTHCHECK --interval=30s --timeout=3s \
