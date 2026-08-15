@@ -1,15 +1,12 @@
 const express = require('express');
 const app = express();
 
-// Use the PORT environment variable provided by Docker, or default to 8080
 const PORT = process.env.PORT || 8080;
 
-// Root endpoint for the healthcheck to ping
 app.get('/', (req, res) => {
-  res.status(200).send('0p3n-s3sam3 Docker Container is online and healthy!');
+  res.status(200).send('Container is online!');
 });
 
-// Bind the server to 0.0.0.0 so it is accessible outside the container network
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server is successfully running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
